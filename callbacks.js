@@ -68,7 +68,16 @@ function handleMouseMove(event) {
 	
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
-	} else {
+	} else if(event.ctrlKey){
+
+		Obj3D.rotObjY += degToRad(deltaX / 5);
+		Obj3D.rotObjX += degToRad(deltaY / 5);
+
+		mat4.identity(Obj3D.rMatrix);
+		mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjX, [1, 0, 0]);
+		mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjY, [0, 0, 1]);
+		
+	}else {
 
 		rotY += degToRad(deltaX / 5);
 		rotX += degToRad(deltaY / 5);

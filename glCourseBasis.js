@@ -16,7 +16,7 @@ var distCENTER;
 // OBJET 3D, lecture fichier obj
 // =====================================================
 
-var Obj3D = { fname:'obj', loaded:-1, shader:null, mesh:null, rMatrix:null, tMatrix:null }; //ajouter une matrice de rotation et une de translation pour l'objet
+var Obj3D = { fname:'obj', loaded:-1, shader:null, mesh:null, rMatrix:null, tMatrix:null, rotObjX:0, rotObjY:0 }; //ajouter une matrice de rotation et une de translation pour l'objet
 
 // =====================================================
 Obj3D.initAll = function()
@@ -61,8 +61,11 @@ Obj3D.setMatrixUniforms = function()
 		mat4.identity(mvMatrix);
 		mat4.translate(mvMatrix, distCENTER);
 		mat4.multiply(mvMatrix, rotMatrix);
-		//mat4.rotate(this.rMatrix, rotX, [0, 0, 0.2]);
-		mat4.translate(this.rMatrix, [0, 0.1, 0]);
+
+		mat4.identity(this.rMatrix);
+		//mat4.translate(this.rMatrix, [0,-0.2,-3]);
+		mat4.rotate(this.rMatrix, this.rotObjY, [0, 0, 1]);
+
 		gl.uniformMatrix4fv(Obj3D.shader.rMatrixUniform, false, rotMatrix);
 		gl.uniformMatrix4fv(Obj3D.shader.mvMatrixUniform, false, mvMatrix);
 		gl.uniformMatrix4fv(Obj3D.shader.pMatrixUniform, false, pMatrix);
@@ -164,17 +167,9 @@ Plane3D.draw = function()
 	}
 }
 
-
-
-
-
 // =====================================================
 // FONCTIONS GENERALES, INITIALISATIONS
 // =====================================================
-
-
-
-
 
 // =====================================================
 function webGLStart() {
@@ -200,6 +195,9 @@ function webGLStart() {
 	mat4.rotate(rotMatrix, rotY, [0, 0, 1]); //rotation en Y
 	//rotMatrix permet de gérer la rotation de la scène 
 	//il faut donc ajouter une autre matrice pour ajouter 
+	// mat4.identity(Obj3D.rMatrix);
+	// mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjX, [1, 0, 0]);
+	// mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjY, [0, 0, 1]);
 	//chaque objet obj devront avoir leur propre matrice de rotation et de translation 
 
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène
@@ -313,6 +311,3 @@ function drawScene() {
 	Plane3D.draw();
 	Obj3D.draw();
 }
-
-
-
