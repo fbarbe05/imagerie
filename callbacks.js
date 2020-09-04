@@ -65,6 +65,8 @@ function handleMouseMove(event) {
 	var newY = event.clientY;	
 	var deltaX = newX - lastMouseX;
 	var deltaY = newY - lastMouseY;
+	var posX;
+	var posY;
 	
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
@@ -76,6 +78,14 @@ function handleMouseMove(event) {
 		mat4.identity(Obj3D.rMatrix);
 		mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjX, [1, 0, 0]);
 		mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjY, [0, 0, 1]);
+
+	}else if(event.altKey){
+		
+		Obj3D.posX += deltaX/200; 
+		Obj3D.posY += deltaY/200;
+
+		mat4.identity(Obj3D.tMatrix);
+		mat4.translate(Obj3D.tMatrix, [Obj3D.posX, -Obj3D.posY, 0]);
 		
 	}else {
 

@@ -16,7 +16,7 @@ var distCENTER;
 // OBJET 3D, lecture fichier obj
 // =====================================================
 
-var Obj3D = { fname:'obj', loaded:-1, shader:null, mesh:null, rMatrix:null, tMatrix:null, rotObjX:0, rotObjY:0 }; //ajouter une matrice de rotation et une de translation pour l'objet
+var Obj3D = { fname:'obj', loaded:-1, shader:null, mesh:null, rMatrix:null, rotObjX:0, rotObjY:0 , tMatrix:null, posX:0, posY:0}; //ajouter une matrice de rotation et une de translation pour l'objet
 
 // =====================================================
 Obj3D.initAll = function()
@@ -49,7 +49,7 @@ Obj3D.setShadersParams = function()
 	this.shader.mvMatrixUniform = gl.getUniformLocation(this.shader, "uMVMatrix");
 	this.shader.pMatrixUniform = gl.getUniformLocation(this.shader, "uPMatrix");
 	this.shader.rObjMatrixUniform = gl.getUniformLocation(this.shader, "uObjRMatrix");
-	//this.shader.tObjMatrixUniform = gl.getUniformLocation(this.shader, "uObjTMatrix");
+	this.shader.tObjMatrixUniform = gl.getUniformLocation(this.shader, "uObjTMatrix");
 }
 
 
@@ -62,15 +62,17 @@ Obj3D.setMatrixUniforms = function()
 		mat4.translate(mvMatrix, distCENTER);
 		mat4.multiply(mvMatrix, rotMatrix);
 
-		mat4.identity(this.rMatrix);
-		//mat4.translate(this.rMatrix, [0,-0.2,-3]);
-		mat4.rotate(this.rMatrix, this.rotObjY, [0, 0, 1]);
+		// mat4.identity(this.rMatrix);
+		// mat4.identity(this.tMatrix);
+		// mat4.translate(this.tMatrix, [0, 0.5, 0]);
+		// mat4.rotate(this.rMatrix, this.rotObjY, [0, 0, 1]);
+		// mat4.rotate(this.rMatrix, this.rotObjX, [1, 0, 0]);
 
 		gl.uniformMatrix4fv(Obj3D.shader.rMatrixUniform, false, rotMatrix);
 		gl.uniformMatrix4fv(Obj3D.shader.mvMatrixUniform, false, mvMatrix);
 		gl.uniformMatrix4fv(Obj3D.shader.pMatrixUniform, false, pMatrix);
 		gl.uniformMatrix4fv(Obj3D.shader.rObjMatrixUniform, false, this.rMatrix);
-		//gl.uniformMatrix4fv(Obj3D.shader.tObjMatrixUniform, false, this.tMatrix);
+		gl.uniformMatrix4fv(Obj3D.shader.tObjMatrixUniform, false, this.tMatrix);
 }
 
 // =====================================================

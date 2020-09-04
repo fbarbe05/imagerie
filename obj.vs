@@ -20,5 +20,5 @@ void main(void) {
 	//ajouter la rotation à droite 
 	N = vec3(uRMatrix * uObjRMatrix * vec4(aVertexNormal,1.0)); //normale du sommet aussi interpolé ou on va appliquer la matrice de rotation 
 	//N = vec3(uRMatrix * vec4(aVertexNormal,1.0)); //normale du sommet aussi interpolé ou on va appliquer la matrice de rotation 
-	gl_Position = uPMatrix * uMVMatrix * uObjRMatrix * vec4(aVertexPosition,1.0);
+	gl_Position = uPMatrix * uMVMatrix * uObjTMatrix * uObjRMatrix * vec4(aVertexPosition,1.0);
 }
