@@ -67,25 +67,29 @@ function handleMouseMove(event) {
 	var deltaY = newY - lastMouseY;
 	var posX;
 	var posY;
+	tabObj.forEach(obj => {
+		if (obj.selected = 1)
+			selectedObj = obj;
+	});
 	
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
 	} else if(event.ctrlKey){
 
-		lapin.rotObjY += degToRad(deltaX / 5);
-		lapin.rotObjX += degToRad(deltaY / 5);
+		selectedObj.rotObjY += degToRad(deltaX / 5);
+		selectedObj.rotObjX += degToRad(deltaY / 5);
 
-		mat4.identity(lapin.rMatrix);
-		mat4.rotate(lapin.rMatrix, lapin.rotObjX, [1, 0, 0]);
-		mat4.rotate(lapin.rMatrix, lapin.rotObjY, [0, 0, 1]);
+		mat4.identity(selectedObj.rMatrix);
+		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjX, [1, 0, 0]);
+		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjY, [0, 0, 1]);
 
 	}else if(event.altKey){
 		
-		lapin.posX += deltaX/200; 
-		lapin.posY += deltaY/200;
+		selectedObj.posX += deltaX/200; 
+		selectedObj.posY += deltaY/200;
 
-		mat4.identity(lapin.tMatrix);
-		mat4.translate(lapin.tMatrix, [lapin.posX, -lapin.posY, 0]);
+		mat4.identity(selectedObj.tMatrix);
+		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, 0]);
 		
 	}else {
 
