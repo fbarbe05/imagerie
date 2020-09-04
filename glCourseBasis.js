@@ -8,14 +8,12 @@ var rotMatrix = mat4.create();
 
 var distCENTER;
 // =====================================================
-
-
-
+var tabObj = [];
 // =====================================================
 // OBJET 3D, lecture fichier obj
 // =====================================================
 class Obj3D {
-	constructor(fname, shape, loaded, shader, mesh, rMatrix, tMatrix, rotObjX, rotObjY, posX, posY) {
+	constructor(fname, shape, loaded, shader, mesh, rMatrix, tMatrix, rotObjX, rotObjY, posX, posY, selected) {
 		this.fname = fname;
 		this.shape = shape;
 		this.loaded = loaded;
@@ -27,6 +25,7 @@ class Obj3D {
 		this.rotObjY = rotObjY;
 		this.posX = posX;
 		this.posY = posY;
+		this.selected = selected;
 	}
 
 	// =====================================================
@@ -98,7 +97,12 @@ class Obj3D {
 		}
 	}
 }
-lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0);
+// =====================================================
+lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0, 1);
+cube = new Obj3D('obj', "porsche", -1, null, null, null, null, 0, 0, 0, 0, 0);
+tabObj.push(lapin);
+tabObj.push(cube);
+
 // =====================================================
 // PLAN 3D, Support géométrique
 // =====================================================
@@ -217,7 +221,7 @@ function webGLStart() {
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène
 		
 	Plane3D.initAll();
-	lapin.initAll();
+	tabObj.forEach(obj => obj.initAll());
 
 	tick();
 }
@@ -323,5 +327,5 @@ function drawScene() {
 
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	Plane3D.draw();
-	lapin.draw();
+	tabObj.forEach(obj => obj.draw());
 }
