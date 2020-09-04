@@ -72,20 +72,20 @@ function handleMouseMove(event) {
 		distCENTER[2] += deltaY/100.0;
 	} else if(event.ctrlKey){
 
-		Obj3D.rotObjY += degToRad(deltaX / 5);
-		Obj3D.rotObjX += degToRad(deltaY / 5);
+		lapin.rotObjY += degToRad(deltaX / 5);
+		lapin.rotObjX += degToRad(deltaY / 5);
 
-		mat4.identity(Obj3D.rMatrix);
-		mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjX, [1, 0, 0]);
-		mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjY, [0, 0, 1]);
+		mat4.identity(lapin.rMatrix);
+		mat4.rotate(lapin.rMatrix, lapin.rotObjX, [1, 0, 0]);
+		mat4.rotate(lapin.rMatrix, lapin.rotObjY, [0, 0, 1]);
 
 	}else if(event.altKey){
 		
-		Obj3D.posX += deltaX/200; 
-		Obj3D.posY += deltaY/200;
+		lapin.posX += deltaX/200; 
+		lapin.posY += deltaY/200;
 
-		mat4.identity(Obj3D.tMatrix);
-		mat4.translate(Obj3D.tMatrix, [Obj3D.posX, -Obj3D.posY, 0]);
+		mat4.identity(lapin.tMatrix);
+		mat4.translate(lapin.tMatrix, [lapin.posX, -lapin.posY, 0]);
 		
 	}else {
 
