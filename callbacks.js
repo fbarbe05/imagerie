@@ -65,9 +65,8 @@ function handleMouseMove(event) {
 	var newY = event.clientY;	
 	var deltaX = newX - lastMouseX;
 	var deltaY = newY - lastMouseY;
-	var posX;
-	var posY;
 	
+	alert(event.key);
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
 	} else if(event.ctrlKey){
@@ -79,7 +78,7 @@ function handleMouseMove(event) {
 		mat4.rotate(lapin.rMatrix, lapin.rotObjX, [1, 0, 0]);
 		mat4.rotate(lapin.rMatrix, lapin.rotObjY, [0, 0, 1]);
 
-	}else if(event.altKey){
+	}else if(event.key == "r"){
 		
 		lapin.posX += deltaX/200; 
 		lapin.posY += deltaY/200;
