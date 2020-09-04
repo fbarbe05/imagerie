@@ -47,6 +47,9 @@ function addObject() {
 	// add object in tabObj
 	tabObj[id] = new Obj3D('obj', shape, -1, null, null, null, null, 0, 0, 0, 0, 0);
 	selectObject(id);
+	
+	// reload
+	tabObj[id].initAll();
 }
 
 function selectObject($id) {
@@ -55,7 +58,4 @@ function selectObject($id) {
 		tabObj[key].selected = 0;
 	}
 	tabObj[$id].selected = 1;
-	
-	// reload
-	tabObj[$id].initAll();
 }
