@@ -67,12 +67,12 @@ function handleMouseMove(event) {
 	var newY = event.clientY;	
 	var deltaX = newX - lastMouseX;
 	var deltaY = newY - lastMouseY;
-
-	tabObj.forEach(obj => {
-		if (obj.selected = 1)
-			selectedObj = obj;
-	});
-
+	
+	for(var key in tabObj) {
+		if (tabObj[key].selected == 1) 
+			selectedObj = tabObj[key];
+	}
+	
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
 	} else if(selectedKeyR){

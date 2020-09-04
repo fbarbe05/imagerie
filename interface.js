@@ -1,62 +1,8 @@
 // =====================================================
 // FONCTIONS SUPPLEMENTAIRES, MODIF COULEUR FOND
-// ça va falloir le mettre dans un nouveau document avec toutes les fonctions pour l'interface
 // =====================================================
 
 // =====================================================
-
-function manageSlider(theSlider, theValue){
-	var slider = document.getElementById(theSlider); 
-	var val = document.getElementById(theValue); 
-	val.innerHTML = slider.value;
-	
-	if (theSlider == "li")
-		Li = slider.value;
-	else if (theSlider == "lobe")
-		n = slider.value;
-	else if (theSlider == "ks")
-		Ks = slider.value;
-	Object3D.setShadersParams();
-	//gl.clearColor(0.7, 0.7, 0.7, bar.value);
-}
-
-function changeDiffuse(theKd){
-	var kdHex = document.getElementById(theKd).value;
-	var ksElt = document.getElementById("ks");
-
-	kdHex = kdHex.replace('#','');
-    var r = parseInt(kdHex.substring(0,2), 16)/255.0;
-    var g = parseInt(kdHex.substring(2,4), 16)/255.0;
-    var b = parseInt(kdHex.substring(4,6), 16)/255.0;
-
-	//parseInt((cutHex(h)).substring(0,2),16)
-	Kd = [r,g,b];
-	
-	var max = Math.trunc(Math.min(1-r, 1-g, 1-b)*100)/100;
-	ksElt.value = Math.min(ksElt.value, max);
-	ksElt.max = max;
-	document.getElementById("ksVal").innerHTML = ksElt.value;
-	document.getElementById("ksMax").innerHTML = "Max : "+ksElt.max;
-	
-	Object3D.setShadersParams();
-}
-
-
-function changeSkin(theTexture){
-	if (theTexture) {
-		useTex = 1;
-	}
-	else
-		useTex = 0;
-
-	Object3D.setShadersParams();
-}
-
-function changeShape(theShape){
-	objName = theShape;
-	verifTex();
-	Object3D.initAll();
-}
 
 function verifTex(){
 	var monImage = new Image();
@@ -71,4 +17,45 @@ function verifTex(){
 	monImage.onload = function(){
 		document.getElementById("textId").disabled = "";
 	}
+}
+
+function addObject() {
+	var shape = document.getElementById("filepicker").value.split("\\")[2].replace(".obj","");
+	var id = shape;
+	
+	// Add radio button in the page
+	let listObj = document.getElementById("listingObj");
+	
+	let newObj = document.createElement("label");
+	newObj.innerText = shape;
+	newObj.setAttribute('class', 'container');
+	
+	var radioInput = document.createElement('input');
+	radioInput.setAttribute('type', 'radio');
+	radioInput.setAttribute('checked', 'checked');
+	radioInput.setAttribute('name', 'shape');
+	radioInput.setAttribute('id', id);
+	radioInput.setAttribute('onclick', 'selectObject(\''+shape+'\');');
+
+	var span = document.createElement('span');
+	span.setAttribute('class', 'checkmark');
+
+	newObj.appendChild(radioInput);
+	newObj.appendChild(span);
+	listObj.appendChild(newObj);
+
+	// add object in tabObj
+	tabObj[id] = new Obj3D('obj', shape, -1, null, null, null, null, 0, 0, 0, 0, 0);
+	selectObject(id);
+	
+	// reload
+	tabObj[id].initAll();
+}
+
+function selectObject($id) {
+	// select current object
+	for(var key in tabObj) {
+		tabObj[key].selected = 0;
+	}
+	tabObj[$id].selected = 1;
 }

@@ -99,9 +99,7 @@ class Obj3D {
 }
 // =====================================================
 lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0, 1);
-cube = new Obj3D('obj', "porsche", -1, null, null, null, null, 0, 0, 0, 0, 0);
-tabObj.push(lapin);
-tabObj.push(cube);
+tabObj["bunny1"] = lapin;
 
 // =====================================================
 // PLAN 3D, Support géométrique
@@ -197,7 +195,6 @@ function webGLStart() {
 	//on fait d'abord la rotation et ensuite la translation 
 	//dans opengl ce n'est pas la caméra qui bouge ce sont les objets
 
-
 	canvas.onmousedown = handleMouseDown;
 	document.onmouseup = handleMouseUp;
 	document.onmousemove = handleMouseMove;
@@ -218,7 +215,9 @@ function webGLStart() {
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène
 		
 	Plane3D.initAll();
-	tabObj.forEach(obj => obj.initAll());
+	for(var key in tabObj) {
+		tabObj[key].initAll();
+	}
 
 	tick();
 }
@@ -253,9 +252,9 @@ loadObjFile = function(myObj)
 		var tmpMesh = new OBJ.Mesh(xhttp.responseText);
 		OBJ.initMeshBuffers(gl,tmpMesh);
 		myObj.mesh=tmpMesh;
-    }
+	}
   }
-
+  
   xhttp.open("GET","Obj/"+myObj.shape+".obj", true);
   xhttp.send();
 }
@@ -324,5 +323,7 @@ function drawScene() {
 
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	Plane3D.draw();
-	tabObj.forEach(obj => obj.draw());
+	for(var key in tabObj) {
+		tabObj[key].draw();
+	}
 }
