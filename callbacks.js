@@ -65,15 +65,11 @@ function handleMouseMove(event) {
 	var newY = event.clientY;	
 	var deltaX = newX - lastMouseX;
 	var deltaY = newY - lastMouseY;
-<<<<<<< HEAD
-=======
-	var posX;
-	var posY;
+	
 	tabObj.forEach(obj => {
 		if (obj.selected = 1)
 			selectedObj = obj;
 	});
->>>>>>> e3b8727e474ea7fada6c1ce07068f38175cc8450
 	
 	alert(event.key);
 	if(event.shiftKey) {
