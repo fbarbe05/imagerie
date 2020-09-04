@@ -37,7 +37,27 @@
 		<!-- Radio -->
 		<input type="radio" disabled name="mouv" id="defaut" checked > <label for="defaut"> Rotation plateau</label>
 		<input type="radio" disabled name="mouv" id="rkey"> <label for="rkey" > Rotation </label>
-		
+	<div style="position: relative; top: -700px; left: 850px; width: 40%; box-shadow: 1px 1px 12px #aaa; background-color: white" >
+		<table>
+			<tr>
+				<td id="listingObj">
+					<!-------------- FORMES --------------> 
+					<!-- Lambert / Phong / ambiance -->
+					<H1>Shape : </H1><br>
+					<label class="container">bunny
+						<input type="radio" checked="checked" name="shape" id="bunny1" onclick="selectObject('bunny1');">
+						<span class="checkmark"></span>
+					</label>
+				</td>
+			</tr>
+		</table>
+		&nbsp
+		<input type="file" accept=".obj" id="filepicker" name="fileList" onchange="addObject();"/>
+		<br><br>
+		<input type="button" value="Restart" onclick="self.location.href='main.html'">
+		<br><br>
+	</div>
 </body>
 
 </html>
+
