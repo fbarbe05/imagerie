@@ -99,7 +99,7 @@ class Obj3D {
 		}
 	}
 }
-lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0);
+lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0);
 // =====================================================
 // PLAN 3D, Support géométrique
 // =====================================================
