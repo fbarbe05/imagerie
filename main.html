@@ -9,21 +9,10 @@
 	<script type="text/javascript" src="glCourseBasis.js"></script>
 	<script type="text/javascript" src="objLoader.js"></script>
 
-	<script>
-		function check(event){
-			if(event.key == "r"){
-				document.getElementById("rkey").checked = true;
-			}
-		}
-		function checkDefaut(){
-			document.getElementById("defaut").checked = true;
-		}
-	</script>
-
 </head>
 
 
-<body onload="webGLStart();" onkeydown="check(event);" onkeyup="checkDefaut();">
+<body onload="webGLStart();" >
 	<canvas id="WebGL-test" style="border:none;" width="800" height="600"></canvas>
 	<br><br>
 	<!-- Choisir les objets à afficher : fichier à charger ?  -->
@@ -33,8 +22,9 @@
 	<!-- Choisir le mouvement à faire -->
 	<p>Sélectionner l'action du mouvement de la souris </p>
 		<!-- Radio -->
-		<input type="radio" disabled name="mouv" id="defaut" checked > <label for="defaut"> Rotation plateau</label>
-		<input type="radio" disabled name="mouv" id="rkey"> <label for="rkey" > Rotation </label>
+		<input type="radio" disabled name="mouv" id="defaut" checked > <label for="defaut"> Rotation plateau (relacher touche) </label>
+		<input type="radio" disabled name="mouv" id="tkey"> <label for="tkey" > Translation (touche t enfoncée) </label>
+		<input type="radio" disabled name="mouv" id="rkey"> <label for="rkey" > Rotation (touche r encfoncée) </label>
 		
 </body>
 

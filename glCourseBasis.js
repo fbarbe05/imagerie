@@ -194,8 +194,6 @@ function webGLStart() {
 	
 	var canvas = document.getElementById("WebGL-test");
 
-	
-	
 	//on fait d'abord la rotation et ensuite la translation 
 	//dans opengl ce n'est pas la caméra qui bouge ce sont les objets
 
@@ -204,6 +202,8 @@ function webGLStart() {
 	document.onmouseup = handleMouseUp;
 	document.onmousemove = handleMouseMove;
 	canvas.onwheel = handleMouseWheel;
+	document.onkeydown = check;
+	document.onkeyup = checkDefaut;
 
 	initGL(canvas);
 	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);//pMatrix = matrice de projection perspective
@@ -213,9 +213,6 @@ function webGLStart() {
 	mat4.rotate(rotMatrix, rotY, [0, 0, 1]); //rotation en Y
 	//rotMatrix permet de gérer la rotation de la scène 
 	//il faut donc ajouter une autre matrice pour ajouter 
-	// mat4.identity(Obj3D.rMatrix);
-	// mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjX, [1, 0, 0]);
-	// mat4.rotate(Obj3D.rMatrix, Obj3D.rotObjY, [0, 0, 1]);
 	//chaque objet obj devront avoir leur propre matrice de rotation et de translation 
 
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène

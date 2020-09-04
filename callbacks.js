@@ -8,6 +8,8 @@ var lastMouseX = null;
 var lastMouseY = null;
 var rotY = 0;
 var rotX = -1; //environ 1/3 de pi 
+var selectedKeyR;
+var selectedKeyT;
 
 // =====================================================
 window.requestAnimFrame = (function()
@@ -65,16 +67,15 @@ function handleMouseMove(event) {
 	var newY = event.clientY;	
 	var deltaX = newX - lastMouseX;
 	var deltaY = newY - lastMouseY;
-	
+
 	tabObj.forEach(obj => {
 		if (obj.selected = 1)
 			selectedObj = obj;
 	});
-	
-	alert(event.key);
+
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
-	} else if(event.ctrlKey){
+	} else if(selectedKeyR){
 
 		selectedObj.rotObjY += degToRad(deltaX / 5);
 		selectedObj.rotObjX += degToRad(deltaY / 5);
@@ -83,7 +84,7 @@ function handleMouseMove(event) {
 		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjX, [1, 0, 0]);
 		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjY, [0, 0, 1]);
 
-	}else if(event.key == "r"){
+	}else if(selectedKeyT){
 		
 		selectedObj.posX += deltaX/200; 
 		selectedObj.posY += deltaY/200;
@@ -103,4 +104,19 @@ function handleMouseMove(event) {
 	
 	lastMouseX = newX
 	lastMouseY = newY;
+}
+
+function check(event){
+	if(event.key == "t"){
+		selectedKeyT = true;
+		document.getElementById("tkey").checked = true;
+	}else if(event.key == "r"){
+		selectedKeyR = true;
+		document.getElementById("rkey").checked = true;
+	}
+}
+function checkDefaut(){
+	selectedKeyT = false;
+	selectedKeyR = false;
+	document.getElementById("defaut").checked = true;
 }
