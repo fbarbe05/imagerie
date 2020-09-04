@@ -65,13 +65,13 @@ function handleMouseMove(event) {
 	var newY = event.clientY;	
 	var deltaX = newX - lastMouseX;
 	var deltaY = newY - lastMouseY;
-	var posX;
-	var posY;
+	
 	tabObj.forEach(obj => {
 		if (obj.selected = 1)
 			selectedObj = obj;
 	});
 	
+	alert(event.key);
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
 	} else if(event.ctrlKey){
@@ -83,7 +83,7 @@ function handleMouseMove(event) {
 		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjX, [1, 0, 0]);
 		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjY, [0, 0, 1]);
 
-	}else if(event.altKey){
+	}else if(event.key == "r"){
 		
 		selectedObj.posX += deltaX/200; 
 		selectedObj.posY += deltaY/200;

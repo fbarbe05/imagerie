@@ -11,10 +11,21 @@
 	<script type="text/javascript" src="interface.js"></script>
 	<link rel="stylesheet" href="style.css">
 
+	<script>
+		function check(event){
+			if(event.key == "r"){
+				document.getElementById("rkey").checked = true;
+			}
+		}
+		function checkDefaut(){
+			document.getElementById("defaut").checked = true;
+		}
+	</script>
+
 </head>
 
 
-<body onload="webGLStart();">
+<body onload="webGLStart();" onkeydown="check(event);" onkeyup="checkDefaut();">
 	<canvas id="WebGL-test" style="border:none;" width="800" height="600"></canvas>
 	<br><br>
 	<!-- Choisir les objets à afficher : fichier à charger ?  -->
@@ -24,10 +35,9 @@
 	<!-- Choisir le mouvement à faire -->
 	<p>Sélectionner l'action du mouvement de la souris </p>
 		<!-- Radio -->
-		<input type="radio" disabled name="mouv" id="defaut"checked onkeyup="document.getElementById('defaut') = checked"> <label for="defaut"> Rotation plateau</label>
-		<input type="radio" disabled name="mouv" id="altkey" > <label for="altkey" > Rotation </label>
+		<input type="radio" disabled name="mouv" id="defaut" checked > <label for="defaut"> Rotation plateau</label>
+		<input type="radio" disabled name="mouv" id="rkey"> <label for="rkey" > Rotation </label>
 		
 </body>
-
 
 </html>
