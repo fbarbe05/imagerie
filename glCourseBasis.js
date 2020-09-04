@@ -15,77 +15,92 @@ var distCENTER;
 // =====================================================
 // OBJET 3D, lecture fichier obj
 // =====================================================
+class Obj3D {
+	constructor(fname, shape, loaded, shader, mesh, rMatrix, tMatrix, rotObjX, rotObjY) {
+		this.fname = fname;
+		this.shape = shape;
+		this.loaded = loaded;
+		this.shader = shader;
+		this.mesh = mesh;
+		this.rMatrix = rMatrix;
+		this.tMatrix = tMatrix;
+		this.rotObjX = rotObjX;
+		this.rotObjY = rotObjY;
+	}
 
-var Obj3D = { fname:'obj', loaded:-1, shader:null, mesh:null, rMatrix:null, rotObjX:0, rotObjY:0 , tMatrix:null, posX:0, posY:0}; //ajouter une matrice de rotation et une de translation pour l'objet
+	//var  = { fname:'obj', shape: "bunny", loaded:-1, shader:null, mesh:null, rMatrix:null, tMatrix:null, rotObjX:0, rotObjY:0 }; //ajouter une matrice de rotation et une de translation pour l'objet
+	
 
-// =====================================================
-Obj3D.initAll = function()
-{
-	this.vBuffer = gl.createBuffer();
-	this.rMatrix = mat4.create();
-	mat4.identity(this.rMatrix);
-	this.tMatrix = mat4.create();
-	mat4.identity(this.tMatrix);
-	loadObjFile(this);
-	loadShaders(this);
-}
+	// =====================================================
+	initAll()
+	{
+		this.vBuffer = gl.createBuffer();
+		this.rMatrix = mat4.create();
+		mat4.identity(this.rMatrix);
+		this.tMatrix = mat4.create();
+		mat4.identity(this.tMatrix);
+		loadObjFile(this);
+		loadShaders(this);
+	}
 
-// =====================================================
-Obj3D.setShadersParams = function()
-{
-	gl.useProgram(this.shader);
+	// =====================================================
+	setShadersParams()
+	{
+		gl.useProgram(this.shader);
 
-	this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
-	gl.enableVertexAttribArray(this.shader.vAttrib);
-	gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.vertexBuffer);
-	gl.vertexAttribPointer(this.shader.vAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
+		gl.enableVertexAttribArray(this.shader.vAttrib);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.vertexBuffer);
+		gl.vertexAttribPointer(this.shader.vAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-	this.shader.nAttrib = gl.getAttribLocation(this.shader, "aVertexNormal");
-	gl.enableVertexAttribArray(this.shader.nAttrib);
-	gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.normalBuffer);
-	gl.vertexAttribPointer(this.shader.nAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+		this.shader.nAttrib = gl.getAttribLocation(this.shader, "aVertexNormal");
+		gl.enableVertexAttribArray(this.shader.nAttrib);
+		gl.bindBuffer(gl.ARRAY_BUFFER, this.mesh.normalBuffer);
+		gl.vertexAttribPointer(this.shader.nAttrib, this.mesh.vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
 
-	this.shader.rMatrixUniform = gl.getUniformLocation(this.shader, "uRMatrix");
-	this.shader.mvMatrixUniform = gl.getUniformLocation(this.shader, "uMVMatrix");
-	this.shader.pMatrixUniform = gl.getUniformLocation(this.shader, "uPMatrix");
-	this.shader.rObjMatrixUniform = gl.getUniformLocation(this.shader, "uObjRMatrix");
-	this.shader.tObjMatrixUniform = gl.getUniformLocation(this.shader, "uObjTMatrix");
-}
+		this.shader.rMatrixUniform = gl.getUniformLocation(this.shader, "uRMatrix");
+		this.shader.mvMatrixUniform = gl.getUniformLocation(this.shader, "uMVMatrix");
+		this.shader.pMatrixUniform = gl.getUniformLocation(this.shader, "uPMatrix");
+		this.shader.rObjMatrixUniform = gl.getUniformLocation(this.shader, "uObjRMatrix");
+		//this.shader.tObjMatrixUniform = gl.getUniformLocation(this.shader, "uObjTMatrix");
+	}
 
 
 
-// =====================================================
-//ajouter l'envoie des matrice obj this ? 
-Obj3D.setMatrixUniforms = function()
-{
-		mat4.identity(mvMatrix);
-		mat4.translate(mvMatrix, distCENTER);
-		mat4.multiply(mvMatrix, rotMatrix);
+	// =====================================================
+	//ajouter l'envoie des matrice obj this ? 
+	setMatrixUniforms()
+	{
+			mat4.identity(mvMatrix);
+			mat4.translate(mvMatrix, distCENTER);
+			mat4.multiply(mvMatrix, rotMatrix);
 
-		// mat4.identity(this.rMatrix);
-		// mat4.identity(this.tMatrix);
-		// mat4.translate(this.tMatrix, [0, 0.5, 0]);
-		// mat4.rotate(this.rMatrix, this.rotObjY, [0, 0, 1]);
-		// mat4.rotate(this.rMatrix, this.rotObjX, [1, 0, 0]);
+			mat4.identity(this.rMatrix);
+			//mat4.translate(this.rMatrix, [0,-0.2,-3]);
+			mat4.rotate(this.rMatrix, this.rotObjY, [0, 0, 1]);
 
-		gl.uniformMatrix4fv(Obj3D.shader.rMatrixUniform, false, rotMatrix);
-		gl.uniformMatrix4fv(Obj3D.shader.mvMatrixUniform, false, mvMatrix);
-		gl.uniformMatrix4fv(Obj3D.shader.pMatrixUniform, false, pMatrix);
-		gl.uniformMatrix4fv(Obj3D.shader.rObjMatrixUniform, false, this.rMatrix);
-		gl.uniformMatrix4fv(Obj3D.shader.tObjMatrixUniform, false, this.tMatrix);
-}
+			gl.uniformMatrix4fv(this.shader.rMatrixUniform, false, rotMatrix);
+			gl.uniformMatrix4fv(this.shader.mvMatrixUniform, false, mvMatrix);
+			gl.uniformMatrix4fv(this.shader.pMatrixUniform, false, pMatrix);
+			gl.uniformMatrix4fv(this.shader.rObjMatrixUniform, false, this.rMatrix);
+			//gl.uniformMatrix4fv(Obj3D.shader.tObjMatrixUniform, false, this.tMatrix);
+	}
 
-// =====================================================
-Obj3D.draw = function()
-{
-	if(this.shader && this.loaded==4 && this.mesh != null) {
-		this.setShadersParams();
-		this.setMatrixUniforms();
-		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
-		gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+	// =====================================================
+	draw()
+	{
+		if(this.shader && this.loaded==4 && this.mesh != null) {
+			this.setShadersParams();
+			this.setMatrixUniforms();
+			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
+			gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 
+		}
 	}
 }
+
+lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0);
+dragon = new Obj3D('obj', "cube", -1, null, null, null, null, 0, 0);
 
 // =====================================================
 // PLAN 3D, Support géométrique
@@ -205,7 +220,9 @@ function webGLStart() {
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène
 		
 	Plane3D.initAll();
-	Obj3D.initAll();
+	lapin.initAll();
+	dragon.initAll();
+
 
 	tick();
 }
@@ -231,7 +248,7 @@ function initGL(canvas)
 
 
 // =====================================================
-loadObjFile = function(OBJ3D)
+loadObjFile = function(myObj)
 {
   var xhttp = new XMLHttpRequest();
   
@@ -239,69 +256,69 @@ loadObjFile = function(OBJ3D)
     if (xhttp.readyState == 4 && xhttp.status == 200) {
 		var tmpMesh = new OBJ.Mesh(xhttp.responseText);
 		OBJ.initMeshBuffers(gl,tmpMesh);
-		OBJ3D.mesh=tmpMesh;
+		myObj.mesh=tmpMesh;
     }
   }
 
-  xhttp.open("GET", "bunny.obj", true);
+  xhttp.open("GET", "Obj/"+myObj.shape+".obj", true);
   xhttp.send();
 }
 
 
 // =====================================================
-function loadShaders(Obj3D) {
-	loadShaderText(Obj3D,'.vs');
-	loadShaderText(Obj3D,'.fs');
+function loadShaders(myObj) {
+	loadShaderText(myObj,'.vs');
+	loadShaderText(myObj,'.fs');
 }
 
 // =====================================================
-function loadShaderText(Obj3D,ext) {   // lecture asynchrone...
+function loadShaderText(myObj,ext) {   // lecture asynchrone...
   var xhttp = new XMLHttpRequest();
   
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
-			if(ext=='.vs') { Obj3D.vsTxt = xhttp.responseText; Obj3D.loaded ++; }
-			if(ext=='.fs') { Obj3D.fsTxt = xhttp.responseText; Obj3D.loaded ++; }
-			if(Obj3D.loaded==2) {
-				Obj3D.loaded ++;
-				compileShaders(Obj3D);
-				Obj3D.loaded ++;
+			if(ext=='.vs') { myObj.vsTxt = xhttp.responseText; myObj.loaded ++; }
+			if(ext=='.fs') { myObj.fsTxt = xhttp.responseText; myObj.loaded ++; }
+			if(myObj.loaded==2) {
+				myObj.loaded ++;
+				compileShaders(myObj);
+				myObj.loaded ++;
 			}
     }
   }
   //Shader compilé et utilisable lorsque loaded = 4
   
-  Obj3D.loaded = 0;
-  xhttp.open("GET", Obj3D.fname+ext, true);
+  myObj.loaded = 0;
+  xhttp.open("GET", myObj.fname+ext, true);
   xhttp.send();
 }
 
 // =====================================================
-function compileShaders(Obj3D)
+function compileShaders(myObj)
 {
-	Obj3D.vshader = gl.createShader(gl.VERTEX_SHADER);
-	gl.shaderSource(Obj3D.vshader, Obj3D.vsTxt);
-	gl.compileShader(Obj3D.vshader);
-	if (!gl.getShaderParameter(Obj3D.vshader, gl.COMPILE_STATUS)) {
-		console.log("Vertex Shader FAILED... "+Obj3D.fname+".vs");
-		console.log(gl.getShaderInfoLog(Obj3D.vshader));
+	myObj.vshader = gl.createShader(gl.VERTEX_SHADER);
+	gl.shaderSource(myObj.vshader, myObj.vsTxt);
+	gl.compileShader(myObj.vshader);
+	if (!gl.getShaderParameter(myObj.vshader, gl.COMPILE_STATUS)) {
+		console.log("Vertex Shader FAILED... "+myObj.fname+".vs");
+		console.log(gl.getShaderInfoLog(myObj.vshader));
 	}
 
-	Obj3D.fshader = gl.createShader(gl.FRAGMENT_SHADER);
-	gl.shaderSource(Obj3D.fshader, Obj3D.fsTxt);
-	gl.compileShader(Obj3D.fshader);
-	if (!gl.getShaderParameter(Obj3D.fshader, gl.COMPILE_STATUS)) {
-		console.log("Fragment Shader FAILED... "+Obj3D.fname+".fs");
-		console.log(gl.getShaderInfoLog(Obj3D.fshader));
+	myObj.fshader = gl.createShader(gl.FRAGMENT_SHADER);
+	gl.shaderSource(myObj.fshader, myObj.fsTxt);
+	gl.compileShader(myObj.fshader);
+	if (!gl.getShaderParameter(myObj.fshader, gl.COMPILE_STATUS)) {
+		console.log("Fragment Shader FAILED... "+myObj.fname+".fs");
+		console.log(gl.getShaderInfoLog(myObj.fshader));
 	}
 
-	Obj3D.shader = gl.createProgram();
-	gl.attachShader(Obj3D.shader, Obj3D.vshader);
-	gl.attachShader(Obj3D.shader, Obj3D.fshader);
-	gl.linkProgram(Obj3D.shader);
-	if (!gl.getProgramParameter(Obj3D.shader, gl.LINK_STATUS)) {
+	myObj.shader = gl.createProgram();
+	gl.attachShader(myObj.shader, myObj.vshader);
+	gl.attachShader(myObj.shader, myObj.fshader);
+	gl.linkProgram(myObj.shader);
+	if (!gl.getProgramParameter(myObj.shader, gl.LINK_STATUS)) {
 		console.log("Could not initialise shaders");
-		console.log(gl.getShaderInfoLog(Obj3D.shader));
+		console.log(gl.getShaderInfoLog(myObj.shader));
 	}
 }
 
@@ -311,5 +328,7 @@ function drawScene() {
 
 	gl.clear(gl.COLOR_BUFFER_BIT);
 	Plane3D.draw();
-	Obj3D.draw();
+	lapin.draw();
+	dragon.draw();
+
 }
