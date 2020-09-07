@@ -110,10 +110,11 @@ a.button3{
   background-color:#4eb5f1;
   text-align:center;
   transition: all 0.2s;
-  cursor: hand;
+  cursor:pointer;
 }
 a.button3:hover{
   background-color:#4095c6;
+  cursor:pointer;
 }
 @media all and (max-width:30em){
   a.button3{

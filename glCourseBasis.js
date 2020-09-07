@@ -9,6 +9,8 @@ var rotMatrix = mat4.create();
 var distCENTER;
 // =====================================================
 var tabObj = [];
+var transp = false;
+var transpVal = 1.0;
 // =====================================================
 // OBJET 3D, lecture fichier obj
 // =====================================================
@@ -49,6 +51,7 @@ class Obj3D {
 		gl.useProgram(this.shader);
 
 		gl.uniform3fv(gl.getUniformLocation(this.shader, "Kd"), [this.r, this.v, this.b]);
+		gl.uniform1f(gl.getUniformLocation(this.shader, "transpVal"), transpVal);
 
 		this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
 		gl.enableVertexAttribArray(this.shader.vAttrib);
@@ -238,11 +241,14 @@ function initGL(canvas)
 		gl.viewport(0, 0, canvas.width, canvas.height); //Je dessine dans la totalité du canvas
 
 		gl.clearColor(0.7, 0.7, 0.7, 1.0);
-		//gl.enable(gl.DEPTH_TEST); //test de la profondeur
+		if(!transp)
+			gl.enable(gl.DEPTH_TEST); //test de la profondeur
 		gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
 		gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
-		gl.enable(gl.BLEND); //active la transparence
-		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+		if(transp) {
+			gl.enable(gl.BLEND); //active la transparence
+			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+		}
 	} catch (e) {}
 	if (!gl) {
 		console.log("Could not initialise WebGL");

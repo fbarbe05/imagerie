@@ -25,7 +25,7 @@
 		<table>
 			<tr>
 				<td id="listingObj">
-					<!-------------- FORMES --------------> 
+					<!-------------- AVAILABLE OBJECTS --------------> 
 					<H1>Shape : </H1><br>
 					<label class="container">bunny
 						<input type="radio" checked="checked" name="shape" id="bunny1" onclick="selectObject('bunny1');">
@@ -50,12 +50,24 @@
 				</td>
 			</tr>
 			<tr>
+				<!-------------- NEW OBJECT -------------->
 				<td>&nbsp 
 					<input type="file" class="styled" accept=".obj" id="filepicker" name="fileList" onchange="addObject();"/>
 				</td>
+				<!-------------- CHOOSE COLOR -------------->
 				<td>
 					<h2 title="Diffuse color">Kd</h2>
-					<input type="color" id="kd" name="kd" value="#1A1ACC" oninput="changeDiffuse('kd');" onchange="invert();">
+					<input type="color" id="kd" name="kd" value="#CC6666" oninput="changeDiffuse('kd');" onchange="invertColor();">
+				</td>
+			</tr>
+			<tr>
+				<!-------------- TRANSPARENCY -------------->
+				<td>
+					<div id="transp">
+						<input type="checkbox" id="scales" name="scales" onclick="activeTransp();">
+						<label for="scales">Scales</label>
+						<br><br>
+					</div>
 				</td>
 			</tr>
 		</table>

@@ -69,17 +69,10 @@ function selectObject(id) {
 	// select current object
 	tabObj[id].selected = 1;
 
-	// register current color
-	tmpKd['r'] = tabObj[id].r;
-	tmpKd['v'] = tabObj[id].v;
-	tmpKd['b'] = tabObj[id].b;
-	// change color to red
-	tabObj[id].r = 0.8;
-	tabObj[id].v = 0.1;
-	tabObj[id].b = 0.1;
+	invertColor();
 }
 
-function invert() {
+function invertColor() {
 	// unselect previous selected object
 	for(var key in tabObj) {
 		if (tabObj[key].selected == 1) {
@@ -113,3 +106,47 @@ function changeDiffuse(theKd){
 	
 	objSelec.setShadersParams();
 }
+
+function activeTransp() {
+	if(!transp) {
+		transp = true;
+		transpVal = 0.5;
+		var inputTransp = document.createElement('input');
+		inputTransp.setAttribute('type', 'range');
+		inputTransp.setAttribute('id', 'inTransp');
+		inputTransp.setAttribute('value', '0.5');
+		inputTransp.setAttribute('min', '0.0');
+		inputTransp.setAttribute('max', '0.9');
+		inputTransp.setAttribute('step', '0.1');
+		inputTransp.setAttribute('oninput', 'manageSlider(\'inTransp\', \'labTransp\');');
+
+		var labelTransp = document.createElement('label');
+		labelTransp.setAttribute('id', 'labTransp');
+		labelTransp.innerText = 0.5;
+
+		//document.getElementById("transp").appendChild(document.createElement('br'));
+		document.getElementById("transp").appendChild(inputTransp);
+		document.getElementById("transp").appendChild(labelTransp);
+	}
+	else {
+		transp = false
+		transpVal = 1.0;
+
+		var inputTransp = document.getElementById("inTransp");
+		var labelTransp = document.getElementById("labTransp");
+
+		document.getElementById("transp").removeChild(inputTransp);
+		document.getElementById("transp").removeChild(labelTransp);
+	}
+	var canvas = document.getElementById("WebGL-test");
+	initGL(canvas);
+}
+
+function manageSlider(theSlider, theValue){
+	var slider = document.getElementById(theSlider); 
+	var val = document.getElementById(theValue); 
+	val.innerHTML = slider.value;
+	
+	transpVal = slider.value;
+}
+
