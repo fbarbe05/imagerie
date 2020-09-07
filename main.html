@@ -21,7 +21,7 @@
 		<!-- Couleur de l'objet -->
 		<!-- Transparence -->
 		<!-- Fil de fer -->
-	<div style="position: relative; top: -600px; left: 850px; width: 40%; box-shadow: 1px 1px 12px #aaa; background-color: white" >
+	<div style="position: relative; top: -600px; left: 850px; width: 45%; box-shadow: 1px 1px 12px #aaa; background-color: white" >
 		<table>
 			<tr>
 				<td id="listingObj">
@@ -30,6 +30,7 @@
 					<label class="container">bunny
 						<input type="radio" checked="checked" name="shape" id="bunny1" onclick="selectObject('bunny1');">
 						<span class="checkmark"></span>
+						<button onclick="removeObj('bunny1')">sup</button>
 					</label>
 				</td>
 				<td>
@@ -39,11 +40,15 @@
 						<input type="radio" disabled name="mouv" id="defaut" checked="checked" >
 						<span class="checkmark"></span>
 					</label>
-					<label class="container" for="tkey" >Translation (touche t enfoncée)
-						<input type="radio" disabled name="mouv" id="tkey">
+					<label class="container" for="hkey" >Translation horizontale (touche h enfoncée)
+						<input type="radio" disabled name="mouv" id="hkey">
 						<span class="checkmark"></span>
 					</label>
-					<label class="container" for="rkey">Rotation (touche r encfoncée)
+					<label class="container" for="vkey" >Translation verticale (touche v enfoncée)
+						<input type="radio" disabled name="mouv" id="vkey">
+						<span class="checkmark"></span>
+					</label>
+					<label class="container" for="rkey">Rotation (touche r enfoncée)
 						<input type="radio" disabled name="mouv" id="rkey">
 						<span class="checkmark"></span>
 					</label>

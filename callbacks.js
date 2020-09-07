@@ -9,7 +9,8 @@ var lastMouseY = null;
 var rotY = 0;
 var rotX = -1; //environ 1/3 de pi 
 var selectedKeyR;
-var selectedKeyT;
+var selectedKeyH;
+var selectedKeyV;
 
 // =====================================================
 window.requestAnimFrame = (function()
@@ -75,24 +76,33 @@ function handleMouseMove(event) {
 	
 	if(event.shiftKey) {
 		distCENTER[2] += deltaY/100.0;
-	} else if(selectedKeyR){
+	} 
+	else if(selectedKeyR){
 
 		selectedObj.rotObjY += degToRad(deltaX / 5);
 		selectedObj.rotObjX += degToRad(deltaY / 5);
 
 		mat4.identity(selectedObj.rMatrix);
-		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjX, [1, 0, 0]);
+		//mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjX, [1, 0, 0]);
 		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjY, [0, 0, 1]);
-
-	}else if(selectedKeyT){
+	}
+	else if(selectedKeyH){
 		
 		selectedObj.posX += deltaX/200; 
 		selectedObj.posY += deltaY/200;
 
 		mat4.identity(selectedObj.tMatrix);
 		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, 0]);
+	}
+	else if(selectedKeyV){
 		
-	}else {
+		selectedObj.posX += deltaX/200; 
+		selectedObj.posY += deltaY/200;
+
+		mat4.identity(selectedObj.tMatrix);
+		mat4.translate(selectedObj.tMatrix, [0, 0, max(-selectedObj.posY, 0)]);
+	}
+	else {
 
 		rotY += degToRad(deltaX / 5);
 		rotX += degToRad(deltaY / 5);
@@ -108,10 +118,15 @@ function handleMouseMove(event) {
 
 //Fonction vérifiant si une touche est enfoncée
 function check(event){
-	if(event.key == "t"){
-		selectedKeyT = true;
-		document.getElementById("tkey").checked = true;
-	}else if(event.key == "r"){
+	if(event.key == "h"){
+		selectedKeyH = true;
+		document.getElementById("hkey").checked = true;
+	}
+	else if(event.key == "v"){
+		selectedKeyV = true;
+		document.getElementById("vkey").checked = true;
+	}
+	else if(event.key == "r"){
 		selectedKeyR = true;
 		document.getElementById("rkey").checked = true;
 	}
@@ -119,7 +134,15 @@ function check(event){
 //Fonction vérifiant si un touche est relachée --> elle pourrait être modifier si l'utilisateur 
 //ne veut pas garder les touches enfoncées pour interagir avec l'interface
 function checkDefaut(){
-	selectedKeyT = false;
+	selectedKeyH = false;
 	selectedKeyR = false;
+	selectedKeyV = false;
 	document.getElementById("defaut").checked = true;
+}
+
+function max(a, b) {
+	if(a > b)
+		return a;
+	else
+		return b;
 }
