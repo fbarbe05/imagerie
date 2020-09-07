@@ -73,7 +73,7 @@ class Obj3D {
 
 
 	// =====================================================
-	//ajouter l'envoie des matrice obj this ? 
+	//ajouter l'envoie des matrice obj this 
 	setMatrixUniforms()
 	{
 			mat4.identity(mvMatrix);
@@ -223,7 +223,6 @@ function webGLStart() {
 
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène
 
-	
 
 	Plane3D.initAll();
 	for(var key in tabObj) {
@@ -245,8 +244,8 @@ function initGL(canvas)
 		gl.clearColor(0.7, 0.7, 0.7, 1.0);
 		if(!transp)
 			gl.enable(gl.DEPTH_TEST); //test de la profondeur
-		gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
-		gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
+			gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
+			gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
 		if(transp) {
 			gl.enable(gl.BLEND); //active la transparence
 			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
