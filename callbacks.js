@@ -106,6 +106,7 @@ function handleMouseMove(event) {
 	lastMouseY = newY;
 }
 
+//Fonction vérifiant si une touche est enfoncée
 function check(event){
 	if(event.key == "t"){
 		selectedKeyT = true;
@@ -115,6 +116,8 @@ function check(event){
 		document.getElementById("rkey").checked = true;
 	}
 }
+//Fonction vérifiant si un touche est relachée --> elle pourrait être modifier si l'utilisateur 
+//ne veut pas garder les touches enfoncées pour interagir avec l'interface
 function checkDefaut(){
 	selectedKeyT = false;
 	selectedKeyR = false;
