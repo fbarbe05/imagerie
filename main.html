@@ -21,30 +21,47 @@
 		<!-- Couleur de l'objet -->
 		<!-- Transparence -->
 		<!-- Fil de fer -->
-	<!-- Choisir le mouvement à faire -->
-	<p>Sélectionner l'action du mouvement de la souris </p>
-		<!-- Radio -->
-		<input type="radio" disabled name="mouv" id="defaut" checked > <label for="defaut"> Rotation plateau (relacher touche) </label>
-		<input type="radio" disabled name="mouv" id="tkey"> <label for="tkey" > Translation (touche t enfoncée) </label>
-		<input type="radio" disabled name="mouv" id="rkey"> <label for="rkey" > Rotation (touche r encfoncée) </label>
-	<div style="position: relative; top: -700px; left: 850px; width: 40%; box-shadow: 1px 1px 12px #aaa; background-color: white" >
+	<div style="position: relative; top: -600px; left: 850px; width: 40%; box-shadow: 1px 1px 12px #aaa; background-color: white" >
 		<table>
 			<tr>
 				<td id="listingObj">
 					<!-------------- FORMES --------------> 
-					<!-- Lambert / Phong / ambiance -->
 					<H1>Shape : </H1><br>
 					<label class="container">bunny
 						<input type="radio" checked="checked" name="shape" id="bunny1" onclick="selectObject('bunny1');">
 						<span class="checkmark"></span>
 					</label>
 				</td>
+				<td>
+					<!-------------- Movements --------------> 
+					<H1>Movements : </H1><br>
+					<label class="container" for="defaut">Rotation plateau (relacher touche)
+						<input type="radio" disabled name="mouv" id="defaut" checked="checked" >
+						<span class="checkmark"></span>
+					</label>
+					<label class="container" for="tkey" >Translation (touche t enfoncée)
+						<input type="radio" disabled name="mouv" id="tkey">
+						<span class="checkmark"></span>
+					</label>
+					<label class="container" for="rkey">Rotation (touche r encfoncée)
+						<input type="radio" disabled name="mouv" id="rkey">
+						<span class="checkmark"></span>
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp 
+					<input type="file" class="styled" accept=".obj" id="filepicker" name="fileList" onchange="addObject();"/>
+				</td>
+				<td>
+					<h2 title="Diffuse color">Kd</h2>
+					<input type="color" id="kd" name="kd" value="#1A1ACC" oninput="changeDiffuse('kd');" onchange="invert();">
+				</td>
 			</tr>
 		</table>
-		&nbsp
-		<input type="file" accept=".obj" id="filepicker" name="fileList" onchange="addObject();"/>
 		<br><br>
-		<input type="button" value="Restart" onclick="self.location.href='main.html'">
+		&nbsp &nbsp
+		<a class="button3" value="Restart" onclick="self.location.href='main.html'">Restart</a>
 		<br><br>
 	</div>
 </body>

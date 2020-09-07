@@ -13,7 +13,7 @@ var tabObj = [];
 // OBJET 3D, lecture fichier obj
 // =====================================================
 class Obj3D {
-	constructor(fname, shape, loaded, shader, mesh, rMatrix, tMatrix, rotObjX, rotObjY, posX, posY, selected) {
+	constructor(fname, shape, loaded, shader, mesh, rMatrix, tMatrix, rotObjX, rotObjY, posX, posY, selected, r, v, b) {
 		this.fname = fname;
 		this.shape = shape;
 		this.loaded = loaded;
@@ -26,6 +26,9 @@ class Obj3D {
 		this.posX = posX;
 		this.posY = posY;
 		this.selected = selected;
+		this.r = r;
+		this.v = v;
+		this.b = b;
 	}
 
 	// =====================================================
@@ -44,6 +47,8 @@ class Obj3D {
 	setShadersParams()
 	{
 		gl.useProgram(this.shader);
+
+		gl.uniform3fv(gl.getUniformLocation(this.shader, "Kd"), [this.r, this.v, this.b]);
 
 		this.shader.vAttrib = gl.getAttribLocation(this.shader, "aVertexPosition");
 		gl.enableVertexAttribArray(this.shader.vAttrib);
@@ -98,8 +103,9 @@ class Obj3D {
 	}
 }
 // =====================================================
-lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0, 1);
+lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0, 1, 0.8, 0.1, 0.1);
 tabObj["bunny1"] = lapin;
+var tmpKd = {'r':0.8, 'v':0.4, 'b':0.4}; // temporary registered color of the selected object
 
 // =====================================================
 // PLAN 3D, Support géométrique
