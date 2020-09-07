@@ -213,7 +213,9 @@ function webGLStart() {
 	//chaque objet obj devront avoir leur propre matrice de rotation et de translation 
 
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène
-		
+
+	
+
 	Plane3D.initAll();
 	for(var key in tabObj) {
 		tabObj[key].initAll();
@@ -232,9 +234,15 @@ function initGL(canvas)
 		gl.viewport(0, 0, canvas.width, canvas.height); //Je dessine dans la totalité du canvas
 
 		gl.clearColor(0.7, 0.7, 0.7, 1.0);
-		gl.enable(gl.DEPTH_TEST); //test de la profondeur
+		gl.enable(gl.BLEND);
+		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+		//gl.enable(gl.DEPTH_TEST); //test de la profondeur
 		gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
 		gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
+		// faire un gl enable gl blend 
+		
+		
+		
 	} catch (e) {}
 	if (!gl) {
 		console.log("Could not initialise WebGL");
@@ -326,4 +334,6 @@ function drawScene() {
 	for(var key in tabObj) {
 		tabObj[key].draw();
 	}
+	
+	
 }
