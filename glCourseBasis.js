@@ -101,7 +101,7 @@ class Obj3D {
 			this.setMatrixUniforms();
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
 			gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-
+			//gl.drawElements(gl.LINES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 		}
 	}
 }

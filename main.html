@@ -27,10 +27,10 @@
 				<td id="listingObj">
 					<!-------------- AVAILABLE OBJECTS --------------> 
 					<H1>Shape : </H1><br>
-					<label class="container">bunny
+					<label class="container" id="labelbunny1">bunny
 						<input type="radio" checked="checked" name="shape" id="bunny1" onclick="selectObject('bunny1');">
 						<span class="checkmark"></span>
-						<button onclick="removeObj('bunny1')">sup</button>
+						<button onclick="removeObj('bunny1')"><img src="img/close.png" style="height: 20px;"></button>
 					</label>
 				</td>
 				<td>
@@ -69,8 +69,8 @@
 				<!-------------- TRANSPARENCY -------------->
 				<td>
 					<div id="transp">
-						<input type="checkbox" id="scales" name="scales" onclick="activeTransp();">
-						<label for="scales">Scales</label>
+						<input type="checkbox" id="trs" name="trs" onclick="activeTransp();">
+						<label for="scaleTrs">Transparency</label>
 						<br><br>
 					</div>
 				</td>
