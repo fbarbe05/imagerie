@@ -238,10 +238,11 @@ function initGL(canvas)
 		gl.viewport(0, 0, canvas.width, canvas.height); //Je dessine dans la totalité du canvas
 
 		gl.clearColor(0.7, 0.7, 0.7, 1.0);
-		gl.enable(gl.DEPTH_TEST); //test de la profondeur
+		//gl.enable(gl.DEPTH_TEST); //test de la profondeur
 		gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
-		gl.enable(gl.BLEND); //active la transparence
 		gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
+		gl.enable(gl.BLEND); //active la transparence
+		gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 	} catch (e) {}
 	if (!gl) {
 		console.log("Could not initialise WebGL");

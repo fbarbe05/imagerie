@@ -8,7 +8,7 @@ uniform vec3 Kd;
 void main(void)
 {
 	vec3 col = Kd * dot(N,normalize(vec3(-pos3D))); // Lambert rendering, eye light source
-	gl_FragColor = vec4(col,1.0);
+	gl_FragColor = vec4(col,0.5);
 }
 
 
