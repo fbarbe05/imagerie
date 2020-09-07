@@ -31,7 +31,7 @@ function addObject() {
 	let listObj = document.getElementById("listingObj");
 	
 	let newObj = document.createElement("label");
-	newObj.innerText = shape;
+	newObj.innerText = shape+" ";
 	newObj.setAttribute('class', 'container');
 	newObj.setAttribute('id', 'label'+id);
 	
