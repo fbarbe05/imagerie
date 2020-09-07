@@ -222,7 +222,9 @@ function webGLStart() {
 	//chaque objet obj devront avoir leur propre matrice de rotation et de translation 
 
 	distCENTER = vec3.create([0,-0.2,-3]); //distance entre mon oeil et le centre de la scène
-		
+
+	
+
 	Plane3D.initAll();
 	for(var key in tabObj) {
 		tabObj[key].initAll();
@@ -340,4 +342,6 @@ function drawScene() {
 	for(var key in tabObj) {
 		tabObj[key].draw();
 	}
+	
+	
 }
