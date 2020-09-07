@@ -33,6 +33,7 @@ function addObject() {
 	let newObj = document.createElement("label");
 	newObj.innerText = shape;
 	newObj.setAttribute('class', 'container');
+	newObj.setAttribute('id', 'label'+id);
 	
 	var radioInput = document.createElement('input');
 	radioInput.setAttribute('type', 'radio');
@@ -44,8 +45,17 @@ function addObject() {
 	var span = document.createElement('span');
 	span.setAttribute('class', 'checkmark');
 
+	var button = document.createElement('button');
+	button.setAttribute('onclick', 'removeObj(\''+id+'\')');
+	var img = document.createElement('img');
+	img.setAttribute('src', 'img/close.png');
+	img.setAttribute('style', 'height: 20px;');
+
+	button.appendChild(img);
+
 	newObj.appendChild(radioInput);
 	newObj.appendChild(span);
+	newObj.appendChild(button);
 	listObj.appendChild(newObj);
 
 	// add object in tabObj
@@ -54,6 +64,12 @@ function addObject() {
 	
 	// reload
 	tabObj[id].initAll();
+}
+
+function removeObj(id) {
+	delete tabObj[id];
+	document.getElementById('label'+id).remove();
+	console.log('label'+id+" will be removed");
 }
 
 function selectObject(id) {

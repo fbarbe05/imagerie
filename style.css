@@ -122,3 +122,11 @@ a.button3:hover{
     margin:0.2em auto;
   }
 } 
+
+button{
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  position: relative;
+  top: 4px;
+}
