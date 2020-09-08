@@ -55,14 +55,25 @@
 				</td>
 			</tr>
 			<tr>
-				<!-------------- NEW OBJECT -------------->
-				<td>&nbsp 
-					<input type="file" class="styled" accept=".obj" id="filepicker" name="fileList" onchange="addObject();"/>
-				</td>
+				<td>
+					<a class="button3" onclick = "addObject('bunny')"> Bunny </a>
+					<a class="button3" onclick = "addObject('teapot')"> Teapot </a>
+					<a class="button3" onclick = "addObject('dragon')"> Dragon </a>
+					<a class="button3" onclick = "addObject('porsche')"> Porsche </a>
+					<a class="button3" onclick = "addObject('skull')"> Skull </a>
+					<a class="button3" onclick = "addObject('cube')"> Cube </a>
+					<a class="button3" onclick = "addObject('ball')"> Ball </a>
+				</td>&nbsp 
 				<!-------------- CHOOSE COLOR -------------->
 				<td>
 					<h2 title="Diffuse color">Kd</h2>
 					<input type="color" id="kd" name="kd" value="#CC6666" oninput="changeDiffuse('kd');" onchange="invertColor();">
+				</td>
+			</tr>
+			<tr>
+				<!-------------- NEW OBJECT -------------->
+				<td>&nbsp 
+					<input type="file" class="styled" accept=".obj" id="filepicker" name="fileList" onchange="addObject();"/>
 				</td>
 			</tr>
 			<tr>

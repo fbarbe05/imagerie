@@ -242,17 +242,14 @@ function initGL(canvas)
 		gl.viewport(0, 0, canvas.width, canvas.height); //Je dessine dans la totalité du canvas
 
 		gl.clearColor(0.7, 0.7, 0.7, 1.0);
-		if(!transp){
-			gl.enable(gl.DEPTH_TEST); //test de la profondeur
-			gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
-			gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
-
-		}
-		if(transp) {
+		if(transp){
 			gl.enable(gl.BLEND); //active la transparence
 			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+		}else {
+			gl.enable(gl.DEPTH_TEST); //test de la profondeur
 		}
-		//gl.polygonMode(gl.FRONT_AND_BACK,gl.LINE); //fil de fer
+		gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
+		gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
 	} catch (e) {}
 	if (!gl) {
 		console.log("Could not initialise WebGL");
@@ -344,6 +341,4 @@ function drawScene() {
 	for(var key in tabObj) {
 		tabObj[key].draw();
 	}
-	
-	
 }
