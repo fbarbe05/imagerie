@@ -21,6 +21,7 @@ class Obj3D {
 		this.loaded = loaded;
 		this.shader = shader;
 		this.mesh = mesh;
+		this.meshAct = false;
 		this.rMatrix = rMatrix;
 		this.tMatrix = tMatrix;
 		this.rotObjX = rotObjX;
@@ -100,8 +101,10 @@ class Obj3D {
 			this.setShadersParams();
 			this.setMatrixUniforms();
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
-			gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-			//gl.drawElements(gl.LINES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+			if(this.meshAct)
+				gl.drawElements(gl.LINES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+			else
+				gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 		}
 	}
 }
@@ -265,7 +268,7 @@ loadObjFile = function(myObj)
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
 		var tmpMesh = new OBJ.Mesh(xhttp.responseText);
-		OBJ.initMeshBuffers(gl,tmpMesh);
+		OBJ.initMeshBuffers(gl,tmpMesh, myObj.meshAct);
 		myObj.mesh=tmpMesh;
 	}
   }

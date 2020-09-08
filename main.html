@@ -61,16 +61,27 @@
 				</td>
 				<!-------------- CHOOSE COLOR -------------->
 				<td>
-					<h2 title="Diffuse color">Kd</h2>
+					<h1 title="Diffuse color">Kd</h1>
 					<input type="color" id="kd" name="kd" value="#CC6666" oninput="changeDiffuse('kd');" onchange="invertColor();">
 				</td>
 			</tr>
+			<tr><td>
+				<h1>Skin</h1><hr style="width: 150%;color:cadetblue;">
+			</td></tr>
 			<tr>
 				<!-------------- TRANSPARENCY -------------->
 				<td>
 					<div id="transp">
 						<input type="checkbox" id="trs" name="trs" onclick="activeTransp();">
 						<label for="scaleTrs">Transparency</label>
+						<br><br>
+					</div>
+				</td>
+				<!-------------- MESH -------------->
+				<td>
+					<div id="mesh">
+						<input type="checkbox" id="meshAct" name="mes" onclick="activeMesh();">
+						<label for="scaleMes">Mesh</label>
 						<br><br>
 					</div>
 				</td>
