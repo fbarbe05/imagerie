@@ -15,7 +15,7 @@ var transpVal = 1.0;
 // OBJET 3D, lecture fichier obj
 // =====================================================
 class Obj3D {
-	constructor(fname, shape, loaded, shader, mesh, rMatrix, tMatrix, rotObjX, rotObjY, posX, posY, selected, r, v, b) {
+	constructor(fname, shape, loaded, shader, mesh, rMatrix, tMatrix, rotObjX, rotObjY, posX, posY, posZ, selected, r, v, b) {
 		this.fname = fname;
 		this.shape = shape;
 		this.loaded = loaded;
@@ -28,6 +28,7 @@ class Obj3D {
 		this.rotObjY = rotObjY;
 		this.posX = posX;
 		this.posY = posY;
+		this.posZ = posZ;
 		this.selected = selected;
 		this.r = r;
 		this.v = v;
@@ -101,7 +102,7 @@ class Obj3D {
 			this.setShadersParams();
 			this.setMatrixUniforms();
 			gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mesh.indexBuffer);
-			if(this.meshAct)
+			if(this.meshAct) 
 				gl.drawElements(gl.LINES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
 			else
 				gl.drawElements(gl.TRIANGLES, this.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
@@ -109,7 +110,7 @@ class Obj3D {
 	}
 }
 // =====================================================
-lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0, 1, 0.8, 0.1, 0.1);
+lapin = new Obj3D('obj', "bunny", -1, null, null, null, null, 0, 0, 0, 0, 0, 1, 0.8, 0.1, 0.1);
 tabObj["bunny1"] = lapin;
 var tmpKd = {'r':0.8, 'v':0.4, 'b':0.4}; // temporary registered color of the selected object
 
@@ -247,14 +248,14 @@ function initGL(canvas)
 		gl.clearColor(0.7, 0.7, 0.7, 1.0);
 		if(!transp){
 			gl.enable(gl.DEPTH_TEST); //test de la profondeur
-			gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
-			gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
 
 		}
-		if(transp) {
+		else {
 			gl.enable(gl.BLEND); //active la transparence
 			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 		}
+		gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas
+		gl.cullFace(gl.BACK); //on enlève la face qui nous tourne le dos
 		//gl.polygonMode(gl.FRONT_AND_BACK,gl.LINE); //fil de fer
 	} catch (e) {}
 	if (!gl) {

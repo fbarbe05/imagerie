@@ -59,7 +59,7 @@ function addObject() {
 	listObj.appendChild(newObj);
 
 	// add object in tabObj
-	tabObj[id] = new Obj3D('obj', shape, -1, null, null, null, null, 0, 0, 0, 0, 0, 0.8, 0.4, 0.4);
+	tabObj[id] = new Obj3D('obj', shape, -1, null, null, null, null, 0, 0, 0, 0, 0, 0, 0.8, 0.4, 0.4);
 	selectObject(id);
 	
 	// reload
