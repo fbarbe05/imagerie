@@ -92,18 +92,17 @@ function handleMouseMove(event) {
 		selectedObj.posY += deltaY/200;
 
 		mat4.identity(selectedObj.tMatrix);
-		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, 0]);
+		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, -selectedObj.posZ]);
 	}
 	else if(selectedKeyV){
 		
-		selectedObj.posX += deltaX/200; 
-		selectedObj.posY += deltaY/200;
+		//selectedObj.posX += deltaX/200; 
+		selectedObj.posZ += deltaY/200;
 
 		mat4.identity(selectedObj.tMatrix);
-		mat4.translate(selectedObj.tMatrix, [0, 0, max(-selectedObj.posY, 0)]);
+		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, max(-selectedObj.posZ, 0)]);
 	}
 	else {
-
 		rotY += degToRad(deltaX / 5);
 		rotX += degToRad(deltaY / 5);
 

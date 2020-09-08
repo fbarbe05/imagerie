@@ -130,3 +130,7 @@ button{
   position: relative;
   top: 4px;
 }
+
+label {
+  font-family: Trebuchet MS, sans-serif;
+}

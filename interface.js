@@ -31,7 +31,7 @@ function addObject() {
 	let listObj = document.getElementById("listingObj");
 	
 	let newObj = document.createElement("label");
-	newObj.innerText = shape;
+	newObj.innerText = shape+" ";
 	newObj.setAttribute('class', 'container');
 	newObj.setAttribute('id', 'label'+id);
 	
@@ -59,7 +59,7 @@ function addObject() {
 	listObj.appendChild(newObj);
 
 	// add object in tabObj
-	tabObj[id] = new Obj3D('obj', shape, -1, null, null, null, null, 0, 0, 0, 0, 0, 0.8, 0.4, 0.4);
+	tabObj[id] = new Obj3D('obj', shape, -1, null, null, null, null, 0, 0, 0, 0, 0, 0, 0.8, 0.4, 0.4);
 	selectObject(id);
 	
 	// reload
@@ -130,7 +130,15 @@ function selectObject(id) {
 	}
 	// select current object
 	tabObj[id].selected = 1;
-
+	
+	// check mesh activation
+	var objMesh = document.getElementById('meshAct');
+	if(tabObj[id].meshAct)
+		objMesh.checked = true;
+	else
+		objMesh.checked = false;
+	
+	// change color to selected
 	invertColor();
 }
 
@@ -202,6 +210,21 @@ function activeTransp() {
 	}
 	var canvas = document.getElementById("WebGL-test");
 	initGL(canvas);
+}
+
+function activeMesh() {
+	for(var key in tabObj) {
+		if (tabObj[key].selected == 1)
+			myObjSelec = tabObj[key];
+	}
+	if(myObjSelec.meshAct) {
+		myObjSelec.meshAct = false;
+		loadObjFile(myObjSelec);
+	}
+	else {
+		myObjSelec.meshAct = true;
+		OBJ.initMeshBuffers(gl,myObjSelec.mesh, myObjSelec.meshAct);
+	}
 }
 
 function manageSlider(theSlider, theValue){

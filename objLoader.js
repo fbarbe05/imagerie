@@ -351,7 +351,7 @@
    *     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, model.mesh.indexBuffer);
    *     gl.drawElements(gl.TRIANGLES, model.mesh.indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
    */
-  OBJ.initMeshBuffers = function( gl, mesh ){
+  OBJ.initMeshBuffers = function( gl, mesh, meshAct ){
 		mesh.vertexBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, mesh.vertexBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh.vertices), gl.STATIC_DRAW);
@@ -370,6 +370,18 @@
     mesh.textureBuffer.itemSize = 2;
     mesh.textureBuffer.numItems = mesh.textures.length / 2;
 
+    if(meshAct) {
+      var tmpIndices = [];
+      for (let i = 0; i < mesh.indices.length; i=i+3) {
+        tmpIndices.push(mesh.indices[i]);
+        tmpIndices.push(mesh.indices[i+1]);
+        tmpIndices.push(mesh.indices[i+1]);
+        tmpIndices.push(mesh.indices[i+2]);
+        tmpIndices.push(mesh.indices[i+2]);
+        tmpIndices.push(mesh.indices[i]);
+      }
+      mesh.indices = tmpIndices;
+    }
     mesh.indexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, mesh.indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(mesh.indices), gl.STATIC_DRAW);
