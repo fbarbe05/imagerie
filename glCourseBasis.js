@@ -247,8 +247,9 @@ function initGL(canvas)
 
 		gl.clearColor(0.7, 0.7, 0.7, 1.0);
 		if(transp){
-			gl.enable(gl.BLEND); //active la transparence
-			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+			gl.enable(gl.BLEND); // active le mélange
+			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); //calcul de la transparence
+			gl.depthMask(false);
 		}else {
 			gl.enable(gl.DEPTH_TEST); //test de la profondeur
 		}

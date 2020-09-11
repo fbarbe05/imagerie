@@ -97,7 +97,7 @@ td {
   width: 20%;
 }
 
-a.button3{
+a.button{
   display:inline-block;
   padding:0.3em 1.2em;
   margin:0 0.3em 0.3em 0;
@@ -107,17 +107,17 @@ a.button3{
   font-family:Calibri, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-weight:300;
   color:#FFFFFF;
-  background-color:#4eb5f1;
+  background-color: rgb(139, 138, 138);
   text-align:center;
   transition: all 0.2s;
   cursor:pointer;
 }
-a.button3:hover{
+a.button:hover{
   background-color:#4095c6;
   cursor:pointer;
 }
 @media all and (max-width:30em){
-  a.button3{
+  a.button{
     display:block;
     margin:0.2em auto;
   }

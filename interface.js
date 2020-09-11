@@ -21,7 +21,9 @@ function verifTex(){
 
 function addObject() {
 	// choosing unused id
-	var shape = document.getElementById("filepicker").value.split("\\")[2].replace(".obj","");
+	var shapes = document.getElementById("filepicker").value.split("\\");
+	var shape = shapes[shapes.length()-1].replace(".obj",""); 
+	alert(shape);
 	var i = 0;
 	while (typeof tabObj[shape+i] !== 'undefined')
 		i ++;
