@@ -68,25 +68,25 @@ function addObject() {
 	tabObj[id].initAll();
 }
 
-function addObject(shape) {
+function addObjectFile(shapeObj) {
 	// choosing unused id
 	var i = 0;
-	while (typeof tabObj[shape+i] !== 'undefined')
+	while (typeof tabObj[shapeObj+i] !== 'undefined')
 		i ++;
-	var id = shape+i;
+	var id = shapeObj+i;
 	
 	// add radio button in the page
 	let listObj = document.getElementById("listingObj");
 	
 	let newObj = document.createElement("label");
-	newObj.innerText = shape;
+	newObj.innerText = shapeObj;
 	newObj.setAttribute('class', 'container');
 	newObj.setAttribute('id', 'label'+id);
 	
 	var radioInput = document.createElement('input');
 	radioInput.setAttribute('type', 'radio');
 	radioInput.setAttribute('checked', 'checked');
-	radioInput.setAttribute('name', 'shape');
+	radioInput.setAttribute('name', 'shapeObj');
 	radioInput.setAttribute('id', id);
 	radioInput.setAttribute('onclick', 'selectObject(\''+id+'\');');
 
@@ -107,7 +107,7 @@ function addObject(shape) {
 	listObj.appendChild(newObj);
 
 	// add object in tabObj
-	tabObj[id] = new Obj3D('obj', shape, -1, null, null, null, null, 0, 0, 0, 0, 0, 0.8, 0.4, 0.4);
+	tabObj[id] = new Obj3D('obj', shapeObj, -1, null, null, null, null, 0, 0, 0, 0, 0, 0.8, 0.4, 0.4);
 	selectObject(id);
 	
 	// reload
@@ -237,3 +237,26 @@ function manageSlider(theSlider, theValue){
 	transpVal = slider.value;
 }
 
+//Fonction vérifiant si une touche est enfoncée
+function check(event){
+	if(event.key == "h"){
+		selectedKeyH = true;
+		document.getElementById("hkey").checked = true;
+	}
+	else if(event.key == "v"){
+		selectedKeyV = true;
+		document.getElementById("vkey").checked = true;
+	}
+	else if(event.key == "r"){
+		selectedKeyR = true;
+		document.getElementById("rkey").checked = true;
+	}
+}
+//Fonction vérifiant si un touche est relachée --> elle pourrait être modifier si l'utilisateur 
+//ne veut pas garder les touches enfoncées pour interagir avec l'interface
+function checkDefaut(){
+	selectedKeyH = false;
+	selectedKeyR = false;
+	selectedKeyV = false;
+	document.getElementById("defaut").checked = true;
+}
