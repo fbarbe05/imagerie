@@ -86,7 +86,7 @@ function addObjectFile(shapeObj) {
 	var radioInput = document.createElement('input');
 	radioInput.setAttribute('type', 'radio');
 	radioInput.setAttribute('checked', 'checked');
-	radioInput.setAttribute('name', 'shapeObj');
+	radioInput.setAttribute('name', 'shape');
 	radioInput.setAttribute('id', id);
 	radioInput.setAttribute('onclick', 'selectObject(\''+id+'\');');
 
