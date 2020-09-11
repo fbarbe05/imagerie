@@ -56,13 +56,13 @@
 			</tr>
 			<tr>
 				<td>
-					<a class="button" onclick = "addObjectFile('bunny');"> Bunny </a>
-					<a class="button" onclick = "addObjectFile('teapot');"> Teapot </a>
-					<a class="button" onclick = "addObjectFile('dragon');"> Dragon </a>
-					<a class="button" onclick = "addObjectFile('porsche');"> Porsche </a>
-					<a class="button" onclick = "addObjectFile('skull');"> Skull </a>
-					<a class="button" onclick = "addObjectFile('cube');"> Cube </a>
-					<a class="button" onclick = "addObjectFile('ball');"> Ball </a>
+					<a class="button" onclick = "addObject('bunny');"> Bunny </a>
+					<a class="button" onclick = "addObject('teapot');"> Teapot </a>
+					<a class="button" onclick = "addObject('dragon');"> Dragon </a>
+					<a class="button" onclick = "addObject('porsche');"> Porsche </a>
+					<a class="button" onclick = "addObject('skull');"> Skull </a>
+					<a class="button" onclick = "addObject('cube');"> Cube </a>
+					<a class="button" onclick = "addObject('ball');"> Ball </a>
 				</td>&nbsp
 				<!-------------- CHOOSE COLOR -------------->
 				<td>
@@ -73,7 +73,7 @@
 			<tr>
 				<!-------------- NEW OBJECT -------------->
 				<td>&nbsp 
-					<input type="file" class="styled" accept=".obj" id="filepicker" name="fileList" onchange="addObject();"/>
+					<input type="file" class="styled" accept=".obj" id="filepicker" name="fileList" onchange="addObject('filePic');"/>
 				</td>
 			</tr>
 			<tr><td>

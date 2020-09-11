@@ -19,16 +19,20 @@ function verifTex(){
 	}
 }
 
-function addObject() {
+function addObject(input) {
+	if(input == 'filePic') {
+		
+		var shapes = document.getElementById("filepicker").value.split("\\");
+		var shape = shapes[shapes.length-1].replace(".obj","");
+	}
+	else 
+		shape = input;
+
 	// choosing unused id
-	var shapes = document.getElementById("filepicker").value.split("\\");
-	var shape = shapes[shapes.length()-1].replace(".obj",""); 
-	alert(shape);
 	var i = 0;
 	while (typeof tabObj[shape+i] !== 'undefined')
 		i ++;
 	var id = shape+i;
-	
 	// add radio button in the page
 	let listObj = document.getElementById("listingObj");
 	
@@ -68,51 +72,6 @@ function addObject() {
 	tabObj[id].initAll();
 }
 
-function addObjectFile(shapeObj) {
-	// choosing unused id
-	var i = 0;
-	while (typeof tabObj[shapeObj+i] !== 'undefined')
-		i ++;
-	var id = shapeObj+i;
-	
-	// add radio button in the page
-	let listObj = document.getElementById("listingObj");
-	
-	let newObj = document.createElement("label");
-	newObj.innerText = shapeObj;
-	newObj.setAttribute('class', 'container');
-	newObj.setAttribute('id', 'label'+id);
-	
-	var radioInput = document.createElement('input');
-	radioInput.setAttribute('type', 'radio');
-	radioInput.setAttribute('checked', 'checked');
-	radioInput.setAttribute('name', 'shape');
-	radioInput.setAttribute('id', id);
-	radioInput.setAttribute('onclick', 'selectObject(\''+id+'\');');
-
-	var span = document.createElement('span');
-	span.setAttribute('class', 'checkmark');
-
-	var button = document.createElement('button');
-	button.setAttribute('onclick', 'removeObj(\''+id+'\')');
-	var img = document.createElement('img');
-	img.setAttribute('src', 'img/close.png');
-	img.setAttribute('style', 'height: 20px;');
-
-	button.appendChild(img);
-
-	newObj.appendChild(radioInput);
-	newObj.appendChild(span);
-	newObj.appendChild(button);
-	listObj.appendChild(newObj);
-
-	// add object in tabObj
-	tabObj[id] = new Obj3D('obj', shapeObj, -1, null, null, null, null, 0, 0, 0, 0, 0, 0.8, 0.4, 0.4);
-	selectObject(id);
-	
-	// reload
-	tabObj[id].initAll();
-}
 
 function removeObj(id) {
 	delete tabObj[id];
