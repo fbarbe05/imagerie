@@ -235,3 +235,26 @@ function manageSlider(theSlider, theValue){
 	transpVal = slider.value;
 }
 
+//Fonction vérifiant si une touche est enfoncée
+function check(event){
+	if(event.key == "h"){
+		selectedKeyH = true;
+		document.getElementById("hkey").checked = true;
+	}
+	else if(event.key == "v"){
+		selectedKeyV = true;
+		document.getElementById("vkey").checked = true;
+	}
+	else if(event.key == "r"){
+		selectedKeyR = true;
+		document.getElementById("rkey").checked = true;
+	}
+}
+//Fonction vérifiant si un touche est relachée --> elle pourrait être modifier si l'utilisateur 
+//ne veut pas garder les touches enfoncées pour interagir avec l'interface
+function checkDefaut(){
+	selectedKeyH = false;
+	selectedKeyR = false;
+	selectedKeyV = false;
+	document.getElementById("defaut").checked = true;
+}

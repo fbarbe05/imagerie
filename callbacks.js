@@ -13,18 +13,16 @@ var selectedKeyH;
 var selectedKeyV;
 
 // =====================================================
-window.requestAnimFrame = (function()
-{
+window.requestAnimFrame = (function () {
 	return window.requestAnimationFrame ||
-         window.webkitRequestAnimationFrame ||
-         window.mozRequestAnimationFrame ||
-         window.oRequestAnimationFrame ||
-         window.msRequestAnimationFrame ||
-         function(/* function FrameRequestCallback */ callback,
-									/* DOMElement Element */ element)
-         {
-            window.setTimeout(callback, 1000/60);
-         };
+		window.webkitRequestAnimationFrame ||
+		window.mozRequestAnimationFrame ||
+		window.oRequestAnimationFrame ||
+		window.msRequestAnimationFrame ||
+		function (/* function FrameRequestCallback */ callback,
+									/* DOMElement Element */ element) {
+			window.setTimeout(callback, 1000 / 60);
+		};
 })();
 
 // ==========================================
@@ -42,7 +40,7 @@ function degToRad(degrees) {
 // =====================================================
 function handleMouseWheel(event) {
 
-	distCENTER[2] += event.deltaY/10.0;
+	distCENTER[2] += event.deltaY / 10.0;
 }
 
 // =====================================================
@@ -61,23 +59,23 @@ function handleMouseUp(event) {
 
 // =====================================================
 function handleMouseMove(event) {
-	
+
 	if (!mouseDown) return;
 
 	var newX = event.clientX;
-	var newY = event.clientY;	
+	var newY = event.clientY;
 	var deltaX = newX - lastMouseX;
 	var deltaY = newY - lastMouseY;
-	
-	for(var key in tabObj) {
-		if (tabObj[key].selected == 1) 
+
+	for (var key in tabObj) {
+		if (tabObj[key].selected == 1)
 			selectedObj = tabObj[key];
 	}
-	
-	if(event.shiftKey) {
-		distCENTER[2] += deltaY/100.0;
-	} 
-	else if(selectedKeyR){
+
+	if (event.shiftKey) {
+		distCENTER[2] += deltaY / 100.0;
+	}
+	else if (selectedKeyR) {
 
 		selectedObj.rotObjY += degToRad(deltaX / 5);
 		selectedObj.rotObjX += degToRad(deltaY / 5);
@@ -86,18 +84,18 @@ function handleMouseMove(event) {
 		//mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjX, [1, 0, 0]);
 		mat4.rotate(selectedObj.rMatrix, selectedObj.rotObjY, [0, 0, 1]);
 	}
-	else if(selectedKeyH){
-		
-		selectedObj.posX += deltaX/200; 
-		selectedObj.posY += deltaY/200;
+	else if (selectedKeyH) {
+
+		selectedObj.posX += deltaX / 200;
+		selectedObj.posY += deltaY / 200;
 
 		mat4.identity(selectedObj.tMatrix);
 		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, -selectedObj.posZ]);
 	}
-	else if(selectedKeyV){
-		
+	else if (selectedKeyV) {
+
 		//selectedObj.posX += deltaX/200; 
-		selectedObj.posZ += deltaY/200;
+		selectedObj.posZ += deltaY / 200;
 
 		mat4.identity(selectedObj.tMatrix);
 		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, max(-selectedObj.posZ, 0)]);
@@ -110,37 +108,13 @@ function handleMouseMove(event) {
 		mat4.rotate(rotMatrix, rotX, [1, 0, 0]);
 		mat4.rotate(rotMatrix, rotY, [0, 0, 1]);
 	}
-	
+
 	lastMouseX = newX
 	lastMouseY = newY;
 }
 
-//Fonction vérifiant si une touche est enfoncée
-function check(event){
-	if(event.key == "h"){
-		selectedKeyH = true;
-		document.getElementById("hkey").checked = true;
-	}
-	else if(event.key == "v"){
-		selectedKeyV = true;
-		document.getElementById("vkey").checked = true;
-	}
-	else if(event.key == "r"){
-		selectedKeyR = true;
-		document.getElementById("rkey").checked = true;
-	}
-}
-//Fonction vérifiant si un touche est relachée --> elle pourrait être modifier si l'utilisateur 
-//ne veut pas garder les touches enfoncées pour interagir avec l'interface
-function checkDefaut(){
-	selectedKeyH = false;
-	selectedKeyR = false;
-	selectedKeyV = false;
-	document.getElementById("defaut").checked = true;
-}
-
 function max(a, b) {
-	if(a > b)
+	if (a > b)
 		return a;
 	else
 		return b;
