@@ -138,6 +138,10 @@ function changeColor(theKd){
 
 function activeTransp() {
 	if(!transp) {
+		if(document.getElementById("meshAct").checked){
+			document.getElementById("meshAct").checked = false;
+			activeMesh();
+		}
 		transp = true;
 		transpVal = 0.5;
 		var inputTransp = document.createElement('input');
@@ -176,11 +180,16 @@ function activeMesh() {
 		if (tabObj[key].selected == 1)
 			myObjSelec = tabObj[key];
 	}
+	
 	if(myObjSelec.meshAct) {
 		myObjSelec.meshAct = false;
 		loadObjFile(myObjSelec);
 	}
 	else {
+		if(document.getElementById("trs").checked){
+			document.getElementById("trs").checked = false;
+			activeTransp();
+		}
 		myObjSelec.meshAct = true;
 		OBJ.initMeshBuffers(gl,myObjSelec.mesh, myObjSelec.meshAct);
 	}
