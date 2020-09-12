@@ -90,15 +90,16 @@ function handleMouseMove(event) {
 		selectedObj.posY += deltaY / 200;
 
 		mat4.identity(selectedObj.tMatrix);
-		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, -selectedObj.posZ]);
+		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, selectedObj.posZ]);
 	}
 	else if (selectedKeyV) {
 
 		//selectedObj.posX += deltaX/200; 
-		selectedObj.posZ += deltaY / 200;
+		selectedObj.posZ -= deltaY / 200;
+		selectedObj.posZ = max(selectedObj.posZ, 0);
 
 		mat4.identity(selectedObj.tMatrix);
-		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, max(-selectedObj.posZ, 0)]);
+		mat4.translate(selectedObj.tMatrix, [selectedObj.posX, -selectedObj.posY, selectedObj.posZ]);
 	}
 	else {
 		rotY += degToRad(deltaX / 5);

@@ -212,8 +212,8 @@ function webGLStart() {
 	document.onmouseup = handleMouseUp;
 	document.onmousemove = handleMouseMove;
 	canvas.onwheel = handleMouseWheel;
-	document.onkeydown = check;
-	document.onkeyup = checkDefaut;
+	document.onkeydown = checkKey;
+	document.onkeyup = checkDefault;
 
 	initGL(canvas);
 	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);//pMatrix = matrice de projection perspective
@@ -251,6 +251,7 @@ function initGL(canvas)
 			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA); //calcul de la transparence
 			gl.depthMask(false);
 		}else {
+			gl.depthMask(true);
 			gl.enable(gl.DEPTH_TEST); //test de la profondeur
 		}
 		gl.enable(gl.CULL_FACE); //si la variable part vers l'arrière on n'affiche pas

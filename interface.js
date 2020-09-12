@@ -1,23 +1,8 @@
 // =====================================================
-// FONCTIONS SUPPLEMENTAIRES, MODIF COULEUR FOND
+// FONCTIONS SUPPLEMENTAIRES
 // =====================================================
 
 // =====================================================
-
-function verifTex(){
-	var monImage = new Image();
-	monImage.src = "Skin/"+objName+".jpg";
-	monImage.onerror = function(){
-		document.getElementById("colorId").select();
-		document.getElementById("textId").disabled = "disabled";
-		document.getElementById("textId").checked = "";
-		document.getElementById("colorId").checked = "checked";
-		useTex = 0;
-	}
-	monImage.onload = function(){
-		document.getElementById("textId").disabled = "";
-	}
-}
 
 function addObject(input) {
 	if(input == 'filePic') {
@@ -77,6 +62,19 @@ function removeObj(id) {
 	delete tabObj[id];
 	document.getElementById('label'+id).remove();
 	console.log('label'+id+" will be removed");
+	
+	// verifies if an object is selected
+	var obselec = false;
+	for(var key in tabObj) {
+		if (tabObj[key].selected == 1)
+			obselec = true;
+	}
+	// select first object in the tab
+	if(obselec == false) {
+		id = Object.keys(tabObj)[0];
+		selectObject(id);
+		document.getElementById(id).checked = true;
+	}
 }
 
 function selectObject(id) {
@@ -121,7 +119,7 @@ function invertColor() {
 	tabObj[id].b = 0.1;
 }
 
-function changeDiffuse(theKd){
+function changeColor(theKd){
 	var kdHex = document.getElementById(theKd).value;
 	var objSelec;
 	for(var key in tabObj) {
@@ -197,7 +195,7 @@ function manageSlider(theSlider, theValue){
 }
 
 //Fonction vérifiant si une touche est enfoncée
-function check(event){
+function checkKey(event){
 	if(event.key == "h"){
 		selectedKeyH = true;
 		document.getElementById("hkey").checked = true;
@@ -213,7 +211,7 @@ function check(event){
 }
 //Fonction vérifiant si un touche est relachée --> elle pourrait être modifier si l'utilisateur 
 //ne veut pas garder les touches enfoncées pour interagir avec l'interface
-function checkDefaut(){
+function checkDefault(){
 	selectedKeyH = false;
 	selectedKeyR = false;
 	selectedKeyV = false;
